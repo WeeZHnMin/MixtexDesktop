@@ -1,0 +1,48 @@
+{
+  "name": "mixtex",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "electron/electron-main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "electron . --entry=electron/electron-main.js",
+    "dist": "npm run build && electron-builder" 
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.2",
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12",
+    "vite": "^6.3.1"
+  },
+  "build": {
+    "appId": "com.wzmmmm.mixtex",
+    "productName": "Mixtex",
+    "icon": "assets/icon.ico",
+    "files": [
+      "web-dist",
+      "electron/**/*",
+      "pandoc/**/*",
+      "assets/icon.ico",
+      "public/**/*",
+      "backend/**/*",
+      "static/**/*"
+    ],
+    "extraMetadata": {
+      "main": "electron/electron-main.js"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true
+    },
+    "asar": false,              
+    "compression": "maximum"
+  }
+}
