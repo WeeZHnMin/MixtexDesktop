@@ -1,7 +1,7 @@
 # MixtexDesktop
 
 <p align="center">
-  <img src="assets/icon.ico" width="120">
+  <img src="assets/icon.ico" width="500" height="500">
 </p>
 
 **MixtexDesktop** is a desktop application designed to:
