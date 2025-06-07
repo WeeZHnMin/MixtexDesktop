@@ -1,6 +1,8 @@
 # MixtexDesktop
 
-![Icon](assets/icon.ico)
+<p align="center">
+  <img src="assets/icon.ico" width="120">
+</p>
 
 **MixtexDesktop** is a desktop application designed to:
 
