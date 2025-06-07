@@ -1,0 +1,233 @@
+<!-- ./pubilc/preview.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>图片预览</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      background: #fff;
+      overflow: hidden;
+    }
+    #container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      cursor: grab;
+      position: relative;
+      user-select: none;
+    }
+    #img {
+      /* 让图片居中且不限制最大宽高 */
+      display: block;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: auto;
+      box-shadow: 0 2px 16px #0002;
+      /* 禁止右键菜单 */
+      -webkit-touch-callout: none;
+    }
+    #controls {
+      position: absolute;
+      right: 32px;
+      top: 32px;
+      z-index: 9;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ctrl-btn {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 40px;
+      height: 40px;
+      font-size: 1.4em;
+      cursor: pointer;
+      box-shadow: 0 1px 4px #0001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      outline: none;
+      user-select: none;
+    }
+    .ctrl-btn:hover {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <img id="img" draggable="false" />
+    <div id="controls">
+      <button class="ctrl-btn" id="zoom-in" title="放大">+</button>
+      <button class="ctrl-btn" id="zoom-out" title="缩小">-</button>
+      <button class="ctrl-btn" id="reset" title="重置">⟳</button>
+      <button class="ctrl-btn" id="fit" title="适应窗口">↔</button>
+      <button class="ctrl-btn" id="actual" title="实际尺寸">1:1</button>
+    </div>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const imgPath = params.get('path');
+    const img = document.getElementById('img');
+    const container = document.getElementById('container');
+    // 控件
+    const btnZoomIn = document.getElementById('zoom-in');
+    const btnZoomOut = document.getElementById('zoom-out');
+    const btnReset = document.getElementById('reset');
+    const btnFit = document.getElementById('fit');
+    const btnActual = document.getElementById('actual');
+
+    // 变换参数
+    let scale = 1, minScale = 0.05, maxScale = 10;
+    let translateX = 0, translateY = 0;
+    let imgNaturalW = 1, imgNaturalH = 1;
+    let isDragging = false, dragStartX = 0, dragStartY = 0, dragOriginX = 0, dragOriginY = 0;
+
+    // ================== 工具函数 ==================
+    function setTransform() {
+      img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+    function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+
+    // ================== 拖动 ==================
+    container.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      dragOriginX = translateX;
+      dragOriginY = translateY;
+      container.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      translateX = dragOriginX + (e.clientX - dragStartX);
+      translateY = dragOriginY + (e.clientY - dragStartY);
+      setTransform();
+    });
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    });
+
+    // ================== 滚轮缩放（以鼠标点为中心） ==================
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      let prevScale = scale;
+      let delta = e.deltaY > 0 ? -0.1 : 0.1;
+      let newScale = clamp(scale + delta * scale, minScale, maxScale);
+
+      // 缩放中心点
+      const rect = img.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+
+      // 计算新平移量（保持鼠标点在图片上的位置不变）
+      translateX -= (cx / prevScale - cx / newScale);
+      translateY -= (cy / prevScale - cy / newScale);
+
+      scale = newScale;
+      setTransform();
+    }, { passive: false });
+
+    // ================== 双击还原（重置） ==================
+    container.addEventListener('dblclick', () => { resetView(); });
+
+    // ================== 控件事件 ==================
+    btnZoomIn.onclick = () => {
+      zoomBy(1.25, container.clientWidth / 2, container.clientHeight / 2);
+    };
+    btnZoomOut.onclick = () => {
+      zoomBy(0.8, container.clientWidth / 2, container.clientHeight / 2);
+    };
+    btnReset.onclick = resetView;
+    btnFit.onclick = fitToWindow;
+    btnActual.onclick = actualSize;
+
+    // ================== 封装缩放 ==================
+    function zoomBy(factor, centerX, centerY) {
+      let prevScale = scale;
+      let newScale = clamp(scale * factor, minScale, maxScale);
+
+      // 保持缩放中心
+      const rect = img.getBoundingClientRect();
+      const cx = centerX - rect.left;
+      const cy = centerY - rect.top;
+      translateX -= (cx / prevScale - cx / newScale);
+      translateY -= (cy / prevScale - cy / newScale);
+
+      scale = newScale;
+      setTransform();
+    }
+
+    // ================== 适应窗口 ==================
+    function fitToWindow() {
+      const winW = container.clientWidth;
+      const winH = container.clientHeight;
+      scale = Math.min(winW / imgNaturalW, winH / imgNaturalH);
+      if (!isFinite(scale)) scale = 1;
+      translateX = 0;
+      translateY = 0;
+      setTransform();
+    }
+
+    // ================== 实际尺寸 ==================
+    function actualSize() {
+      scale = 1;
+      translateX = 0;
+      translateY = 0;
+      setTransform();
+    }
+
+    // ================== 重置 ==================
+    function resetView() {
+      fitToWindow();
+    }
+
+    // ================== 禁止右键菜单 ==================
+    img.addEventListener('contextmenu', e => e.preventDefault());
+
+    // ================== 加载图片 ==================
+    img.onload = () => {
+      imgNaturalW = img.naturalWidth;
+      imgNaturalH = img.naturalHeight;
+      fitToWindow();
+    };
+    img.src = imgPath;
+
+    // ================== 窗口变化自适应 ==================
+    window.addEventListener('resize', () => {
+      fitToWindow();
+    });
+
+    // ================== 键盘快捷键 ==================
+    window.addEventListener('keydown', e => {
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === '+' || e.key === '=') {
+          zoomBy(1.25, container.clientWidth / 2, container.clientHeight / 2);
+          e.preventDefault();
+        } else if (e.key === '-') {
+          zoomBy(0.8, container.clientWidth / 2, container.clientHeight / 2);
+          e.preventDefault();
+        } else if (e.key === '0') {
+          fitToWindow();
+          e.preventDefault();
+        } else if (e.key === '1') {
+          actualSize();
+          e.preventDefault();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
