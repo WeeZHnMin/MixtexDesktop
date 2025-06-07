@@ -1,6 +1,6 @@
 # MixtexDesktop
 
-![Icon](.assets/icon.ico)
+![Icon](assets/icon.ico)
 
 **MixtexDesktop** is a desktop application designed to:
 
