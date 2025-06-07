@@ -18,6 +18,8 @@ This tool is very useful for students, researchers, and educators who often work
 
 ---
 
+![演示效果](./show.gif)
+
 ## Usage Guide 使用教程
 
 ### Step 1: Download models
