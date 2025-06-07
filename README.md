@@ -1,6 +1,6 @@
 # MixtexDesktop
 
-**MixtexDesktop** is a powerful desktop application that allows users to:
+**MixtexDesktop** is a desktop application that allows users to:
 - Convert image-based math text (e.g., handwritten or printed equations) into **LaTeX** format
 - Convert **LaTeX** code into a **.docx** file compatible with Microsoft Word or WPS Office
 
