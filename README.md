@@ -1,5 +1,7 @@
 # MixtexDesktop
 
+![Icon](.assets/icon.ico)
+
 **MixtexDesktop** is a desktop application designed to:
 
 * Convert images containing math text (such as handwritten or printed equations) into **LaTeX** format.
