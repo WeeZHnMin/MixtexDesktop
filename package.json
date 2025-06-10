@@ -1,14 +1,17 @@
 {
-  "name": "my-app",
+  "name": "mixtex",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "A desktop app for converting LaTeX to Word",
+  "author": "wzmmmm",                              
   "type": "module",
-  "main": "electron-main.js",
+  "main": "electron/electron-main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "electron": "electron ."
+    "electron": "electron . --entry=electron/electron-main.js",
+    "dist": "npm run build && electron-builder" 
   },
   "dependencies": {
     "vue": "^3.5.13",
@@ -17,6 +20,36 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.2",
     "electron": "^35.2.0",
+    "electron-builder": "^26.0.12",
     "vite": "^6.3.1"
+  },
+  "build": {
+    "artifactName": "${productName}-Setup-v${version}-Windows.${ext}",
+    "appId": "com.wzmmmm.mixtex",
+    "productName": "Mixtex",
+    "icon": "assets/icon.ico",
+    "files": [
+      "web-dist",
+      "electron/**/*",
+      "pandoc/**/*",
+      "assets/icon.ico",
+      "public/**/*",
+      "backend/**/*"
+    ],
+    "extraMetadata": {
+      "main": "electron/electron-main.js"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true
+    },
+    "asar": true,
+    "afterPack": "build/remove-unwanted.js",
+    "compression": "maximum",
+    "asarUnpack": [
+      "pandoc/**/*",
+      "backend/**/*"
+    ]
   }
 }

@@ -1,3 +1,4 @@
+<!-- /src/App.vue -->
 <template>
   <div class="layout">
     <Sidebar />
@@ -20,8 +21,7 @@ import Sidebar from './components/Sidebar.vue'
 
 .main-content {
   display: flex;
-  max-width: 75%;
-  width: 1200px;
+  width: 100%;
   height: 100%;
   margin-right: 0
 }

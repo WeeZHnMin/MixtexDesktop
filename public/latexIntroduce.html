@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Overleaf</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16pt;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+      width: 100%;         /* 100% viewport width */
+    }
+    header {
+      background-color: #008561;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      margin: auto;
+      max-width: 1300px; 
+    }
+    main img {
+      display: block;
+      margin: 0 auto;
+      position: relative;
+    }
+    h2 {
+      color: #008561;
+    }
+    p {
+      text-indent: 2em;
+    }
+    .btn {
+      background-color: #008561;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .btn:hover {
+      background-color: #006f50;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #e9ecef;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Introduction to Overleaf</h1>
+    <p>A collaborative LaTeX editor for scientific writing</p>
+  </header>
+  <main>
+    <h2>📚 What is Overleaf?</h2>
+    <p>Overleaf 是一个基于云端的 LaTeX 编辑平台，专为撰写学术论文、技术文档、简历、幻灯片等科学内容而设计。它允许用户通过网页浏览器直接编写 LaTeX 文档，无需安装任何软件或配置环境。用户可以在线查看编译结果，实现所见即所得的预览体验。</p>
+    <p>Overleaf is a cloud-based LaTeX editing platform designed for writing academic papers, technical documents, resumes, slides, and other scientific content. It allows users to write LaTeX documents directly in a web browser without the need to install any software or configure an environment. Users can view compilation results online, achieving a WYSIWYG preview experience.</p>
+    <p>Overleaf 提供了丰富的模板库，支持多种期刊和大学的论文格式，用户可以轻松选择合适的模板开始撰写。此外，Overleaf 还支持多人协作编辑，实时同步修改，极大地提高了团队合作的效率。</p>
+    <p>Overleaf offers a rich library of templates supporting various journal and university paper formats, allowing users to easily select the appropriate template to start writing. Additionally, Overleaf supports collaborative editing with real-time synchronization of changes, greatly enhancing team collaboration efficiency.</p>
+
+    <h2>🚀 Features</h2>
+    <ul>
+      <li>自动LaTeX编译和预览</li>
+      <li>期刊和大学论文的内置模板</li>
+      <li>Latex版本选择和论文历史记录</li>
+    </ul>
+
+    <h2>🎯 Why Use Overleaf?</h2>
+    <p>简化了LaTeX编写过程并消除了安装软件的需要。无论是在写论文、期刊文章还是简历，Overleaf都能让它变得简单高效。</p>
+
+    <h2>📖 How To Use</h2>
+    
+
+    <div style="text-align: center;">
+      <a href="https://www.overleaf.com" class="btn" target="_blank">Open Overleaf Now</a>
+    </div>
+
+    <p>注册一个账号，来到主页，在New Project创建一个空白项目。</p>
+    <div style="text-align: center;">
+      <img src="Home.png" alt="Description" width="1300" height="650"/>
+    </div>
+    <p>
+      点击左上角 <strong style="color: red;">Menu(菜单)</strong> 中找到 <strong style="color: red;">Compiler(编译器)</strong>，将编译器切换为 <strong style="color: red;">XeLaTeX</strong>，然后将下方的模板粘贴到 <strong style="color: red;">main.tex</strong> 。然后点击Recompile(重新渲染编译) 按钮即可看到效果。
+    </p>
+        <div style="text-align: center;">
+      <img src="Show.png" alt="Description" width="1300" height="650"/>
+    </div>
+
+    <p>编译完成后可将文档导出</p>
+    
+    <div style="text-align: center;">
+      <a href="Introduction.pdf" class="btn" target="_blank">查阅Pdf效果</a>
+    </div>
+    <h4>This is a LaTeX Template</h4>
+    <pre><code class="language-latex">
+\documentclass[12pt]{article}
+
+% 中文支持（可选）
+\usepackage[UTF8]{ctex} % 中文需要ctex支持
+
+% 基本功能包
+\usepackage[margin=2.5cm]{geometry} % 设置页边距
+\usepackage{graphicx}               % 插入图片
+\usepackage{amsmath}               % 数学公式支持
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref} % 超链接支持
+
+% 标题信息
+\title{Introduction to Overleaf}
+\author{author}
+\date{June 2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{What is Overleaf?}
+Overleaf is an online \LaTeX{} editor that allows real-time collaboration and instant preview of LaTeX documents.
+
+Overleaf 是一个在线 \LaTeX{} 编辑器，允许实时协作和即时预览LaTeX文档。
+
+\section{How to Use It}
+Just create a project, write LaTeX code, and click compile. No installation is required.
+
+只需创建一个项目，编写LaTeX代码，然后单击编译。无需安装。
+
+\section{Insert an Image}
+Here’s an example of adding an image:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{your_image.png}
+    \caption{Sample image from Overleaf.}
+\end{figure}
+
+\section{Write Math}
+LaTeX makes math beautiful:
+\[
+a^2 + b^2 = c^2
+\]
+
+\section{Add a Link}
+Visit \href{https://www.overleaf.com}{Overleaf Official Website} for more info.
+
+\end{document}
+    </code></pre>
+
+  </main>
+  <footer>
+    <p>Created in 2025</p>
+  </footer>
+</body>
+</html>

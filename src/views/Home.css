@@ -1,0 +1,251 @@
+.container {
+  width: 100%;               /* 水平占满 */
+  gap: 8px;             
+  margin-top: 5px;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;     /* 垂直排列 */
+  height: 100%;              /* 占满整个视口高度 */
+  justify-content: center;    /* 垂直居中 */
+  align-items: center;        /* 水平居中 */
+}
+
+.top-box {
+  width: 100%;               /* 水平占满 */
+  flex: 1;                    /* 占用剩余空间的比例（等价于 height: 50%） */
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  display: flex;              /* 激活 Flexbox */
+  justify-content: center;    /* 水平居中 */
+  align-items: center;        /* 垂直居中 */
+  min-width: 0; /* 在父容器 flex-direction: row 时尤其重要 */
+  min-height: 0; /* 在父容器 flex-direction: column 时尤其重要 */
+}
+
+.top-box.is-dragging {
+  background-color: #e9f5ff; /* 浅蓝色背景 */
+}
+
+.paste-box {
+  display: flex;
+  justify-content: center;    /* 水平居中 */
+  align-items: center;        /* 垂直居中 */
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  font-size: 18px;
+  user-select: none;
+}
+
+.no-pasted {
+  border-radius: 0.5rem;
+}
+
+.img-box {
+  display: flex;
+  justify-content: center;    /* 水平居中 */
+  align-items: center;        /* 垂直居中 */
+  width: 100%;
+  height: 100%;
+  border-left: 2px double rgb(197, 193, 193);
+}
+
+.img-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;   /* 保持宽高比例缩放，完整展示整个图像 */
+  cursor: pointer;
+}
+
+.paste-box, .img-box {
+  flex: 1;
+}
+
+.middle-box {
+  width: 100%;               /* 水平占满 */
+  flex: 1;                    /* 占用剩余空间的比例（等价于 height: 50%） */
+  flex-direction: row;        /* ✅ 水平排列 */
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;              /* 激活 Flexbox */
+  justify-content: center;    /* 水平居中 */
+  align-items: center;        /* 垂直居中 */ 
+  user-select: none;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.text-area, .render-area {
+  flex: 1 1 50%;         /* ✅ 每个占 50% */
+  min-width: 0;
+}
+
+.render-area {
+  display: flex;
+  align-items: center;    /* 顶部对齐，避免垂直居中影响换行 */
+  width: 100%;
+  height: 100%;
+  border-left: 2px double rgb(197, 193, 193);
+  padding: 10px;
+  /* overflow-y: auto; */
+  /* overflow-x: hidden;  */
+  box-sizing: border-box;
+  word-wrap: break-word;      /* 强制换行 */
+  word-break: break-all;      /* 在任意字符处换行 */
+}
+
+.text-area {
+  width: 100%;               /* 水平占满 */
+  height: 100%;              /* 占满剩余空间 */
+  display: flex;             /* 激活 Flexbox */
+  justify-content: center;   /* 水平居中 */
+  box-sizing: border-box;
+}
+
+.mathjax-container {
+  width: 100%;               /* 水平占满 */
+  height: 100%;              /* 占满剩余空间 */
+  overflow-y: auto;          /* 垂直滚动条 */
+  overflow-x: hidden;        /* 禁止水平滚动条 */
+  font-size: 15px;           /* 字体大小 */
+  line-height: 1.5;          /* 行高 */
+}
+
+.text-area textarea {
+  width: 100%;                /* 水平占满 */
+  height: 100%;               /* 垂直占满 */
+  border: 1px solid #ffffff;
+  font-size: 15px;
+  resize: none;               /* 禁止调整大小 */
+  padding: 0.5rem;
+  box-sizing: border-box;     /* 确保内边距在总高度内 */
+  transition: all 0.15s ease;   /* ⭐ 平滑过渡效果 */
+  user-select: none;
+  border-top-left-radius: 0.5rem; /* 圆角 */
+  border-bottom-left-radius: 0.5rem; /* 圆角 */
+}
+
+.text-area textarea:focus {
+  outline: none;              /* 去掉默认的蓝色边框 */
+  border: 2px solid lightblue; /* 聚焦时的边框颜色 */
+  box-shadow: 0 0 5px rgba(0, 122, 204, 0.5); /* 聚焦时的阴影效果 */
+}
+
+.bottom-box {
+  width: 100%;               /* 水平占满 */
+  height: 42px;              /* 占满剩余空间 */
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  gap: 1px;
+  display: flex;              /* 激活 Flexbox */
+  align-items: center;
+  padding-left: 10px;
+  gap: 7px;
+  padding-top: 6px;
+}
+
+.combination-btn {
+    padding-right: 5px;
+    margin-left: auto;       /* ✅ 自动推到最右边 */
+    position: relative; 
+    transform: translateY(-3px);
+    display: flex;
+}
+
+.latexIntro {
+  margin-right: 5px;
+  height: 25px;
+  width: 110px;
+  border: 1px solid #e0e0e0; 
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #000000;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;  /* 字体族 */
+  font-weight: 500;  
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.latexIntro:hover {
+  background-color: #f0f0f0; 
+  color: #007bff;
+}
+
+.menu-wrapper {
+  display: flex; 
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;  /* 字体族 */
+  font-size: 14px;                                              /* 字体大小 */
+  font-weight: 500;                                             /* 字体粗细 */
+  color: #333333;
+  transform: translateY(-1px); 
+}
+
+.menu-button {
+    height: 25px;
+    width: 90px;
+    color: #000000;
+    border: 1px solid #e0e0e0; 
+    border-radius: 15px; 
+    cursor: pointer;
+    user-select: none; 
+    font-size: 14px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    display: flex;                 /* ✅ 开启弹性盒 */
+    justify-content: center;      /* ✅ 水平居中 */
+    align-items: center;          /* ✅ 垂直居中 */
+}
+
+.menu-button:hover {
+    background-color: #f0f0f0; 
+    color: #007bff; 
+}
+
+.dropup-menu {
+  position: absolute;
+  bottom: calc(100% + 4px); /* 定位在按钮上方，并留出8px间隙 */
+  background: #ffffff;
+  border: 1px solid #e0e0e0; 
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+  z-index: 1000; 
+  animation: fadeInScaleUp 0.2s ease-out forwards;
+  overflow: hidden;
+  width: 89px;
+}
+
+@keyframes fadeInScaleUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.menu-item {
+    height: 25px;
+    white-space: nowrap; 
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;                 /* ✅ 开启弹性盒 */
+    justify-content: center;      /* ✅ 水平居中 */
+    align-items: center;          /* ✅ 垂直居中 */
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.menu-item:hover {
+  background-color: #f0f0f0; 
+  color: #007bff; 
+}
+
+.menu-item:last-child {
+  border-bottom: 1px solid #e0e0e0;
+}
